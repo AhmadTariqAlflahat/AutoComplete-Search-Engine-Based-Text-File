@@ -1,0 +1,6 @@
+State : The state of the system physically
+State Space : The set of all paths from root node to other nodes
+Search Tree : The way of finding node in tree (tracing)
+Search Node : The path of the tracing to find specific node (goal)
+Goal :
+Action : Transport from state to state
