@@ -1,6 +1,6 @@
-import string
+from . import stem
 import re
-stopwords = ["a", "about", "above", "above", "across", "after", "afterwards",
+stopwords = [x.upper() for x in ["a", "about", "above", "above", "across", "after", "afterwards",
 "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among",
 "amongst", "amoungst", "amount", "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere",
 "are", "around", "as", "at", "back","be","became", "because","become","becomes", "becoming", "been", "before",
@@ -25,10 +25,10 @@ stopwords = ["a", "about", "above", "above", "across", "after", "afterwards",
 "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when",
 "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether",
 "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without",
-"would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"]
+"would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"]]
 def tokens(t,q):
-    query = re.split('\W+', q.lower())
-    tokens = re.split('\W+', t.lower())
+    query = re.split('\W+', q.upper())
+    tokens = re.split('\W+', t.upper())
     flag = 0
     for f in range(0,len(tokens)-1):
         if tokens[flag] in stopwords:
@@ -41,7 +41,13 @@ def tokens(t,q):
             query.pop(flag)
             flag-=1
         flag+=1
+    stemming = []
     for q in query:
-        if q in tokens:
-            return [True,tokens]
-    return False
+        stemming.append(stem.stemmer(q.upper()))
+
+
+    for s in stemming:
+        for key, value in s.items():
+            if value.upper() in tokens:
+                return [True,tokens,stemming]
+        return stemming

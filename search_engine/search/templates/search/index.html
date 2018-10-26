@@ -1,4 +1,9 @@
-<form method='GET' action="{% url 'search:results' %}">
-  <input type='text' name="q">
-  <input type='submit' value='Search'>
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'search/index.css' %}" >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div id="search">
+<form class="search" method='get' action='{% url 'search:results' %}'>
+  <input type='text' placeholder='What you thinking about' name="q" id="searchBox">
+  <button type="submit"><i class="fa fa-search"></i></button>
 </form>
+</div>

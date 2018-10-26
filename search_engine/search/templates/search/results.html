@@ -1,6 +1,34 @@
-Title
-
-{% for key, value in links.items %}
-  <a href='/media/{{ value }}.txt'>{{key}}</a>
-{% endfor %}
-{{test}}
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'search/index.css' %}" >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<div id='header'>
+  <div id="logo">
+    <h1 style="font-family:'Pacifico';">Vibbar</h1>
+  </div>
+  <div id="search_after">
+    <form class="search" method='get' action='{% url 'search:results' %}'>
+      <input type='text' placeholder='What you thinking about' name="q" id="searchBox" value="{{s}}">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+<div id="search_r">
+  <div class="search_rps">
+  About {{res_count}} results ({{timer}} seconds)
+  </div>
+  {% for key, value in links.items %}
+  <div class="d_search_context">
+    {% for k,v in value.items %}
+      {% if k == key %}
+        <a href='/media/{{ v }}.txt'>{{k}}</a>
+      {% endif %}
+      {% if k == 'describe' %}
+        <div>
+          {{v}}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
